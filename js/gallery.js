@@ -65,51 +65,6 @@ const images = [
   },
 ];
 
-
-// function createGalleryItem(image) {
-//   return `
-//     <li class="gallery-item">
-//       <a class="gallery-link" href="${image.original}">
-//         <img
-//           class="gallery-image"
-//           src="${image.preview}"
-//           data-source="${image.original}"
-//           alt="${image.description}"
-//         />
-//       </a>
-//     </li>`;
-// }
-
-
-// const galleryContainer = document.querySelector('.gallery');
-
-
-// galleryContainer.innerHTML = images.map(createGalleryItem).join('');
-
-
-// galleryContainer.addEventListener('click', (event) => {
-//   event.preventDefault();
-
- 
-//   if (event.target.classList.contains('gallery-image')) {
-//     const largeImageSrc = event.target.dataset.source;
-
-   
-//     const instance = basicLightbox.create(`
-//       <img src="${largeImageSrc}" width="800" height="600">
-//     `);
-
-//     instance.show();
-//   }
-// });
-
-
-// document.addEventListener('keydown', (event) => {
-//   if (event.code === 'Escape') {
-//     basicLightbox.close;
-//   }
-// });
-
 function createGalleryItem(image) {
   return `
     <li class="gallery-item">
@@ -134,23 +89,27 @@ galleryContainer.addEventListener('click', (event) => {
   if (event.target.classList.contains('gallery-image')) {
     const largeImageSrc = event.target.dataset.source;
 
-    // Використовуємо об'єкт налаштувань для закриття модального вікна за допомогою клавіші "Escape"
-    const instance = basicLightbox.create(
-      `<img src="${largeImageSrc}" width="800" height="600">`,
-      {
-        onShow: (instance) => {
-          // Додаємо обробник подій для закриття модального вікна при натисканні на клавішу "Escape"
-          const closeOnEscape = (event) => {
-            if (event.code === 'Escape') {
-              instance.close();
-              document.removeEventListener('keydown', closeOnEscape);
-            }
-          };
+    const instance = basicLightbox.create(`
+        <img class="lightbox-image" src="${largeImageSrc}" width="800" height="600">
+    `, {
+      onShow: (instance) => {
+        const lightboxImage = instance.element().querySelector('.lightbox-image');
+        if (lightboxImage) {
+          lightboxImage.style.width = 'calc(100% - 164px * 2)';
+          lightboxImage.style.height = 'calc(100% - 28px * 2)';
+          lightboxImage.style.objectFit = 'cover';
+          lightboxImage.style.margin = '28px 164px';
+        }
 
-          document.addEventListener('keydown', closeOnEscape);
-        },
-      }
-    );
+        const closeOnEscape = (event) => {
+          if (event.code === 'Escape') {
+            instance.close();
+            document.removeEventListener('keydown', closeOnEscape);
+          }
+        };
+        document.addEventListener('keydown', closeOnEscape);
+      },
+    });
 
     instance.show();
   }

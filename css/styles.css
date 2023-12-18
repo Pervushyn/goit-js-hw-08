@@ -1,17 +1,20 @@
 
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-y: hidden;
+  overflow-x: hidden; 
+}
+
 body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 1440px;
-  margin: 0;
+ max-width: 1440px;
+  height: 696px;
 }
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
 
 a {
   text-decoration: none;
@@ -19,7 +22,7 @@ a {
 
 .images {
   display: block;
-  max-width: 100%;
+  max-width: 360px;
   height: auto;
   margin: 0 auto;
 }
@@ -35,8 +38,8 @@ a {
   flex-wrap: wrap;
   gap: 24px;
   list-style-type: none;
-  padding: 24px 0 0 0;
-  margin: 0;
+  padding: 24px 0 24px 0;
+  margin: 0 156px;
   justify-content: center; 
 }
 
@@ -60,4 +63,13 @@ a {
 
 .basicLightbox {
   background: rgba(46, 47, 66, 0.80);
+  
 }
+
+.basicLightbox__content img {
+  width: calc(100% - 164px * 2);
+  height: calc(100% - 28px * 2);
+  object-fit: cover;
+  margin: 28px;
+}
+
